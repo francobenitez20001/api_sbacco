@@ -5,7 +5,25 @@ exports.getAll = async(req,res)=>{
     const inmuebleService = new InmuebleService();
     const imagenesService = new ImageneService();
     try {
-        const {body:{filtros},query:{cantidad,order,desde}} = req;
+        const {query:{cantidad,order,desde}} = req;
+        const idLocalidad = req.query.idLocalidad || null;
+        const idBarrio = req.query.idBarrio || null;
+        const idCategoria = req.query.idCategoria || null;
+        const idOperacion = req.query.idOperacion || null;
+        const precio = req.query.precio || null;
+        const moneda = req.query.moneda || null;
+        const minPrecio = req.query.minPrecio || null;
+        const maxPrecio = req.query.maxPrecio || null;
+        const filtros = {
+            idLocalidad,
+            idBarrio,
+            idCategoria,
+            idOperacion,
+            precio,
+            moneda,
+            minPrecio,
+            maxPrecio
+        }
         const admin = req.header('x-auth-token') ? 1 : 0;
         const inmuebles = await inmuebleService.getAll(admin,desde,cantidad,order,filtros);
         if(inmuebles.length === 0){
