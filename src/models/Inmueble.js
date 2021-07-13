@@ -2,7 +2,21 @@ const db = require('../database/database');
 
 class InmuebleModel{
     getAll(admin,desde,cantidad,order,filtros){
-        let query = "SELECT  partidos.partido, localidades.localidad, barrios.barrio ,tipo_operacion.operacion, categorias.categoria, datos_tecnicos.*, inmuebles.* FROM inmuebles LEFT JOIN partidos ON inmuebles.idPartido = partidos.id LEFT JOIN localidades ON inmuebles.idLocalidad = localidades.id LEFT JOIN barrios ON inmuebles.idBarrio = barrios.idBarrio LEFT JOIN datos_tecnicos ON inmuebles.id = datos_tecnicos.idCasa LEFT JOIN categorias ON inmuebles.idCategoria = categorias.id LEFT JOIN tipo_operacion ON inmuebles.idOperacion = tipo_operacion.id WHERE 1=1 ";
+        let query = `SELECT partidos.partido, 
+                    localidades.localidad, 
+                    barrios.barrio,
+                    tipo_operacion.operacion, 
+                    categorias.categoria, 
+                    datos_tecnicos.*, 
+                    inmuebles.* 
+        FROM inmuebles 
+            LEFT JOIN partidos ON inmuebles.idPartido = partidos.id 
+                LEFT JOIN localidades ON inmuebles.idLocalidad = localidades.id 
+                    LEFT JOIN barrios ON inmuebles.idBarrio = barrios.idBarrio 
+                        LEFT JOIN datos_tecnicos ON inmuebles.id = datos_tecnicos.idCasa 
+                            LEFT JOIN categorias ON inmuebles.idCategoria = categorias.id 
+                                LEFT JOIN tipo_operacion ON inmuebles.idOperacion = tipo_operacion.id 
+                                    WHERE 1=1 `;
         if(!admin){
           query += "AND activo = 1 ";
         }
